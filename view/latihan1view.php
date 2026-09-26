@@ -11,7 +11,7 @@
     <?php
     $i = 1;
     foreach ($datamhs as $mhs) {
-        echo $i++ . ". " . $mhs['nama'] . " " . $mhs['nim'] . "<br>";
+        echo $i++ . ". " . $mhs['nama'] . " " . $mhs['nim'] . " " . $mhs['alamat'] . " " . $mhs['no_hp'] . "<br>";
     }
     ?>
 
