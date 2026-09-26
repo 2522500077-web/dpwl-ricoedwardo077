@@ -7,6 +7,6 @@ class Latihan1Controller
     {
         $model = new Latihan1Model();
         $datamhs = $model->getAllMhs();
-        require './view/latihan1View.php';
+        require './view/latihan1view.php';
     }
 }
