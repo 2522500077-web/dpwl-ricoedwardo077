@@ -18,7 +18,7 @@ $controllerName = ucfirst($segment[0]);
 $controllerFile = 'controller/' . $controllerName . '.php';
 //if (file_exists($controllerFile)) {
 //    require_once $controllerFile;
-$controller = new $controllerName();
+$objController = new $controllerName();
 
 if (method_exists($objController, $method)) {
     if ($parameter !== null) {
