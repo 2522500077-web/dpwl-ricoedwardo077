@@ -1,37 +1,41 @@
 <?php
-require_once 'config/config.php';
-require_once 'config/routes.php';
-require_once 'helper/url_helper.php';
 
-$url = $_GET['url'] ?? '';
+require_once 'core/Controller.php';
 
-if ($url == '') {
-    $url = $route['default_controller'] . '/index';
-}
+// Controller default
+$default_controller = 'Latihan1Controller';
+$default_method = 'index';
 
-$url = trim($url, '/');
-$segment = explode('/', $url);
+// Ambil controller dari URL
+$controller = isset($_GET['controller'])
+    ? $_GET['controller']
+    : $default_controller;
 
-$controller = $segment[0] ?? $route['default_controller'];
-$method     = $segment[1] ?? 'index';
-$parameter  = $segment[2] ?? null;
-$controllerName = ucfirst($controller);
-$controllerFile = 'controller/' . $controllerName . '.php';
+// Ambil method dari URL
+$method = isset($_GET['method'])
+    ? $_GET['method']
+    : $default_method;
+
+// File controller
+$controllerFile = './controller/' . $controller . '.php';
 
 if (file_exists($controllerFile)) {
-    require_once $controllerFile;
-    $objController = new $controllerName();
 
+    require_once $controllerFile;
+
+    // Buat object controller
+    $objController = new $controller();
+
+    // Cek method
     if (method_exists($objController, $method)) {
-        if ($parameter != null) {
-            $objController->$method($parameter);
-        } else {
-            $objController->$method();
-        }
+
+        // Jalankan method
+        $objController->$method();
+
     } else {
         echo "Method tidak ditemukan.";
     }
+
 } else {
     echo "Controller tidak ditemukan.";
 }
-?>
