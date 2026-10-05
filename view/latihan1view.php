@@ -106,6 +106,7 @@
         }
         ?>
     </table>
+    Admin, <?= htmlspecialchars($name_user) ?>
 
 </body>
 </html>
