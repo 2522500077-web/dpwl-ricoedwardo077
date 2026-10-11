@@ -3,7 +3,8 @@ class Login_C extends Controller
 {
   public function index()
   {
-    $this->load->view('login');
+    $isipsn['psn'] = $this->session->set_flashdata('pesan');
+    $this->load->view('login', $isipsn);
   }
   public function CekLogin()
   {
@@ -16,7 +17,8 @@ class Login_C extends Controller
         $this->session->set_userdata('emailuser', $email);
         echo '<script>alert("Login berhasil sebagai ' . $this->session->userdata('emailuser') . '");</script>';
     } else {
-        echo '<script>alert("Gagal: Silahkan cek email, password, atau status akun Anda.");</script>';
+        $this->session->set_flashdata('pesan', 'Gagal: Silahkan cek email, password, atau status akun Anda...');
+        redirect('login_c/index');
     }
   }
 }
