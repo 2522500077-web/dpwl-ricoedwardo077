@@ -20,6 +20,11 @@
     <a href="../../index2.html"><b>Admin</b>LTE</a>
   </div>
   <!-- /.login-logo -->
+  <?php
+  if (!empty($psn)) {
+    echo"<script>alert('" . $psn . "');</script>";
+  }
+  ?>
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
