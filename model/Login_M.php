@@ -1,7 +1,7 @@
 <?php
 class Login_M extends Model
 {
-    function ambildata($email, $pass)
+    function ambildata($email)
     {
         $dtadmin = $this->db->prepare("select username, password, status_akun
             from admin where username=? and status_akun='Aktif'");
