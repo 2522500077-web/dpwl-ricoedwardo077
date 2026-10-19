@@ -3,18 +3,17 @@ class Controller
 {
     public function __construct()
     {
-        $this->session = new session();
+        $this->session = new Session();
         $this->load = new class {
             public function view($viewName, $data = [])
             {
                 if (!empty($data)) extract($data);
                 include './view/' . $viewName . '.php';
             }
-
             public function model($modelName)
             {
                 require_once './model/' . $modelName . '.php';
-                $modelName = basename(modelName);
+                $modelName = basename($modelName);
                 return new $modelName();
             }
             public function post($key = null)
@@ -32,8 +31,6 @@ class Controller
                 }
                 return $_GET[$key] ?? null;
             }
-
-
         };
     }
 }
