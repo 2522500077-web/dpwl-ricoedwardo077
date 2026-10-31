@@ -52,7 +52,31 @@
                                 <td><?= $m['nbagasi'] ?></td>
                                 <td><?= $m['jns_mobil'] . '<br>' . $m['transmisi'] ?></td>
                                 <td><?= $m['thn_buat'] ?></td>
-                                <td><?= $m['ft_depan'] . '<br>' . $m['ft_blkng'] . '<br>' . $m['ft_interior'] ?></td>
+<td>
+    <?php if (!empty($m['ft_depan'])) : ?>
+        <img src="<?= base_url('img/' . $m['ft_depan']) ?>"
+             style="width: 100px; height: 70px; object-fit: cover;"
+             alt="Foto Depan Mobil"
+             onerror="this.style.display='none';">
+        <br>
+    <?php endif; ?>
+
+    <?php if (!empty($m['ft_blkng'])) : ?>
+        <img src="<?= base_url('img/' . $m['ft_blkng']) ?>"
+             style="width: 100px; height: 70px; object-fit: cover;"
+             alt="Foto Belakang Mobil"
+             onerror="this.style.display='none';">
+        <br>
+    <?php endif; ?>
+
+    <?php if (!empty($m['ft_interior'])) : ?>
+        <img src="<?= base_url('img/' . $m['ft_interior']) ?>"
+             style="width: 100px; height: 70px; object-fit: cover;"
+             alt="Foto Interior Mobil"
+             onerror="this.style.display='none';">
+    <?php endif; ?>
+</td>
+
                                 <td><?= $m['hrg_hari'] ?></td>
                                 <td><?= $m['cttn_unit'] ?></td>
                                 <td><?= $m['status_unit'] ?></td>

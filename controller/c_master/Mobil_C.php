@@ -32,17 +32,56 @@ class Mobil_C extends Controller
         $ft_blkng     = 'Belakang' . $this->load->post('no_plat');
         $ft_interior = 'Interior' . $this->load->post('no_plat');
         $folder = dirname(__DIR__, 2) . '/img/';
-        if (isset($_FILES['ft_depan']) && $_FILES['ft_depan']['error'] == 0) {
+if (isset($_FILES['ft_depan']) && $_FILES['ft_depan']['error'] == 0) {
             $file = $_FILES['ft_depan'];
             $info = getimagesize($file['tmp_name']);
             $ext = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
             if ($info && isset($ext[$info['mime']]) && $file['size'] <= 2 * 1024 * 1024) {
                 $namaFiledepan = $ft_depan . '.' . $ext[$info['mime']];
-                move_uploaded_file($file['tmp_name'], $folder . $namaFiledepan);
+                if (move_uploaded_file($file['tmp_name'], $folder . $namaFiledepan)) {
+                    $ft_depan = $namaFiledepan;
+                }
+                public function edit($no_plat)
+                {
+                    $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
+                    $mobil = $this->load->model('m_master/Mobil_M');
+                    $dt['mobil'] = $mobil->detailmobil($no_plat);
+                    $this->load->view('layout/header');
+                    $this->load->view('layout/sidebar', $info);
+                    $this->load->view('v_master/updatemobilview', $dt);
+                    $this->load->view('layout/footer');
+                }
             } else {
                 echo "<script>alert('Gagal simpan gambar, cek ukuran dan format..!');</script>";
             }
         }
+if (isset($_FILES['ft_blkng']) && $_FILES['ft_blkng']['error'] == 0) {
+            $file = $_FILES['ft_blkng'];
+            $info = getimagesize($file['tmp_name']);
+            $ext = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
+            if ($info && isset($ext[$info['mime']]) && $file['size'] <= 2 * 1024 * 1024) {
+                $namaFileblkng = $ft_blkng . '.' . $ext[$info['mime']];
+                if (move_uploaded_file($file['tmp_name'], $folder . $namaFileblkng)) {
+                    $ft_blkng = $namaFileblkng;
+                }
+            } else {
+                echo "<script>alert('Gagal simpan gambar, cek ukuran dan format..!');</script>";
+            }
+        }
+if (isset($_FILES['ft_interior']) && $_FILES['ft_interior']['error'] == 0) {
+            $file = $_FILES['ft_interior'];
+            $info = getimagesize($file['tmp_name']);
+            $ext = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
+            if ($info && isset($ext[$info['mime']]) && $file['size'] <= 2 * 1024 * 1024) {
+                $namaFileinterior = $ft_interior . '.' . $ext[$info['mime']];
+                if (move_uploaded_file($file['tmp_name'], $folder . $namaFileinterior)) {
+                    $ft_depan = $namaFileinterior;
+                }
+            } else {
+                echo "<script>alert('Gagal simpan gambar, cek ukuran dan format..!');</script>";
+            }
+        }
+
         $data = [
             'no_plat'    => $this->load->post('no_plat'),
             'nm_mobil'   => $this->load->post('nm_mobil'),
