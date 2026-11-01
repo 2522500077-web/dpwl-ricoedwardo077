@@ -87,10 +87,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="jns_mobil">Jenis Mobil</label>
-                                            <input type="text" name="jns_mobil"
-                                                   id="jns_mobil" class="form-control"
-                                                   placeholder="Masukkan jenis mobil"
-                                                   required>
+                                            <select name="jns_mobil" class="form control" required>
+                                                <option value="Sedan" <?= $mobil['jns_mobil'] == 'Sedan' ? 'selected' : '' ?>>Sedan</option>
+                                                <option value="Hatchback" <?= $mobil['jns_mobil'] == 'Hatchback' ? 'selected' : '' ?>>Hatchback</option>
+                                                <option value="MPV" <?= $mobil['jns_mobil'] == 'MPV' ? 'selected' : '' ?>>MPV</option>
+                                                <option value="SUV" <?= $mobil['jns_mobil'] == 'SUV' ? 'selected' : '' ?>>SUV</option>
+                                                <option value="Pickup" <?= $mobil['jns_mobil'] == 'Pickup' ? 'selected' : '' ?>>Pickup</option>
+                                                <option value="Minibus" <?= $mobil['jns_mobil'] == 'Minibus' ? 'selected' : '' ?>>Minibus</option>
+                                            </select>
+                                            
                                         </div>
                                     </div>
 

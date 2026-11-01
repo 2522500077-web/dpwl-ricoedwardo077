@@ -81,7 +81,7 @@
                                 <td><?= $m['cttn_unit'] ?></td>
                                 <td><?= $m['status_unit'] ?></td>
                                 <td>
-                                    <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="<?= base_url('Mobil_C/edit/' . $m['no_plat']) ?>" class="btn btn-warning btn-sm">Edit</a>
                                     <a href="#" class="btn btn-danger btn-sm">Hapus</a>
                                 </td>
                             </tr>
