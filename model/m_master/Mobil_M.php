@@ -1,4 +1,3 @@
-
 <?php
 class Mobil_M extends Model
 {
@@ -6,56 +5,53 @@ class Mobil_M extends Model
     {
         $dtmobil = $this->db->prepare("SELECT no_plat, nm_mobil, nkursi, nbagasi, jns_mobil, transmisi,
         thn_buat, ft_depan, ft_blkng, ft_interior, hrg_hari, cttn_unit, status_unit FROM mobil");
-
-        if (!$dtmobil) {
-            die("Query gagal: " . $this->db->error);
-        }
-
         $dtmobil->execute();
         return $dtmobil->get_result()->fetch_all(MYSQLI_ASSOC);
     }
     public function cekplat($no_plat)
-    {
-        $sql = $this->db->prepare("SELECT no_plat FROM mobil WHERE no_plat = ? ");
-        $sql->bind_param("s", $no_plat);
-        $sql->execute();
-        $hasil = $sql->get_result();
-        return $hasil->num_rows > 0;
-    }
-    public function simpan($data)
-    {
-        $sql = $this->db->prepare("INSERT INTO mobil (no_plat,nm_mobil,nkursi,nbagasi,jns_mobil,transmisi,thn_buat,ft_depan,ft_blkng,ft_interior,hrg_hari,cttn_unit,status_unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-        $sql->bind_param("ssiissssssdss", $data['no_plat'], $data['nm_mobil'], $data['nkursi'], $data['nbagasi'], $data['jns_mobil'], $data['transmisi'], $data['thn_buat'], $data['ft_depan'], $data['ft_blkng'], $data['ft_interior'], $data['hrg_hari'], $data['cttn_unit'], $data['status_unit']);
-        return $sql->execute();
-    }
-    public function getmobil($no_plat)
-    {
-        $sql = $this->db->prepare("SELECT * FROM mobil WHERE no_plat = ?");
-        $sql->bind_param("s", $no_plat);
-        $sql->execute();
-        return $sql->get_result()->fetch_assoc();
-    }
-   public function update($no_plat, $data)
 {
-    $sql = $this->db->prepare("UPDATE mobil SET
-        nm_mobil = ?,
-        nkursi = ?,
-        nbagasi = ?,
-        jns_mobil = ?,
-        transmisi = ?,
-        thn_buat = ?,
-        ft_depan = ?,
-        ft_blkng = ?,
-        ft_interior = ?,
-        hrg_hari = ?,
-        cttn_unit = ?,
-        status_unit = ?
-        WHERE no_plat = ?");
+    $sql = $this->db->prepare("SELECT no_plat FROM mobil WHERE no_plat = ? ");
+    $sql->bind_param("s", $no_plat);
+    $sql->execute();
+    $hasil = $sql->get_result();
+    return $hasil->num_rows > 0;
+}
 
-    if (!$sql) {
-        die("Prepare gagal: " . $this->db->error);
-    }
+public function simpan($data)
+{
+    $sql = $this->db->prepare("INSERT INTO mobil (no_plat,nm_mobil,nkursi,nbagasi,
+    jns_mobil,transmisi,thn_buat,ft_depan,ft_blkng,ft_interior,hrg_hari,cttn_unit,
+    status_unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    $sql->bind_param("ssiississsdss", $data['no_plat'], $data['nm_mobil'], $data['nkursi'], 
+    $data['nbagasi'], $data['jns_mobil'], $data['transmisi'], $data['thn_buat'], 
+    $data['ft_depan'], $data['ft_blkng'], $data['ft_interior'], $data['hrg_hari'], 
+    $data['cttn_unit'], $data['status_unit']);
+    return $sql->execute();
+}
+
+public function detailmobil($no_plat)
+{
+    $sql = $this->db->prepare(
+        "SELECT no_plat, nm_mobil, nkursi, nbagasi, jns_mobil,
+            transmisi, thn_buat, ft_depan, ft_blkng,
+            ft_interior, hrg_hari, cttn_unit, status_unit
+        FROM mobil
+        WHERE no_plat = ?"
+    );
+
+    $sql->bind_param("s", $no_plat);
+    $sql->execute();
+
+    return $sql->get_result()->fetch_assoc();
+}
+public function UbahDtMobil($data)
+{
+    $sql = $this->db->prepare(
+        "UPDATE mobil SET nm_mobil = ?, nkursi = ?, nbagasi = ?, jns_mobil = ?, 
+        transmisi = ?, thn_buat = ?, ft_depan = ?, ft_blkng = ?, ft_interior = ?, 
+        hrg_hari = ?, cttn_unit = ?, status_unit = ? WHERE no_plat = ?"
+    );
 
     $sql->bind_param(
         "siississsdsss",
@@ -71,13 +67,17 @@ class Mobil_M extends Model
         $data['hrg_hari'],
         $data['cttn_unit'],
         $data['status_unit'],
-        $no_plat
+        $data['no_plat']
     );
 
-    if (!$sql->execute()) {
-        die("Update gagal: " . $sql->error);
-    }
-
-    return true;
+    return $sql->execute();
+}
+public function HapusDtMobil($no_plat)
+{
+    $dtmobil = $this->db->prepare("DELETE FROM mobil WHERE no_plat = ?");
+    $dtmobil->bind_param("s", $no_plat);
+    $hasil = $dtmobil->execute();
+    $dtmobil->close();
+    return $hasil;
 }
 }
