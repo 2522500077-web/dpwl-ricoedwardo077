@@ -1,7 +1,8 @@
 
 <?php
-class Penyewa_M extends Model
+class Penyewa_M077 extends Model
 {
+    // Menampilkan seluruh data penyewa
     public function datapenyewa()
     {
         $sql = $this->db->prepare("
@@ -12,9 +13,11 @@ class Penyewa_M extends Model
         ");
 
         $sql->execute();
+
         return $sql->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    // Mengecek username penyewa
     public function cekpenyewa($user_plg077)
     {
         $sql = $this->db->prepare("
@@ -29,6 +32,7 @@ class Penyewa_M extends Model
         return $sql->get_result()->num_rows > 0;
     }
 
+    // Menyimpan data penyewa
     public function simpan($data)
     {
         $sql = $this->db->prepare("
@@ -53,6 +57,7 @@ class Penyewa_M extends Model
         return $sql->execute();
     }
 
+    // Menampilkan detail penyewa
     public function detailpenyewa($user_plg077)
     {
         $sql = $this->db->prepare("
@@ -69,6 +74,7 @@ class Penyewa_M extends Model
         return $sql->get_result()->fetch_assoc();
     }
 
+    // Mengubah data penyewa
     public function UbahDtpenyewa($data)
     {
         $sql = $this->db->prepare("
@@ -98,6 +104,7 @@ class Penyewa_M extends Model
         return $sql->execute();
     }
 
+    // Menghapus data penyewa
     public function HapusDtpenyewa($user_plg077)
     {
         $sql = $this->db->prepare("
