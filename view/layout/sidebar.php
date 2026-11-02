@@ -51,7 +51,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url('Penyewa_C/index') ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Penyewa</p>
                 </a>
@@ -111,11 +111,10 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?= base_url('Auth_C/keluar') ?>" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
+              <p>          
+Logout
               </p>
             </a>
           </li>
